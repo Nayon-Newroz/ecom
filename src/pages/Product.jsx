@@ -9,6 +9,8 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { CartContext } from "../context/CartContext";
 
+import Container from "@mui/material/Container";
+
 const Product = () => {
   const data = [
     {
@@ -16,7 +18,7 @@ const Product = () => {
       title: "Hp Latop",
       price: 55000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
 
       img: Laptop,
     },
@@ -25,7 +27,7 @@ const Product = () => {
       title: "Samsung Phone",
       price: 70000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Samsung,
     },
     {
@@ -33,7 +35,7 @@ const Product = () => {
       title: "Ipad Pro",
       price: 60000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Ipad,
     },
     {
@@ -41,7 +43,7 @@ const Product = () => {
       title: "Desktop Computer",
       price: 80000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Desktop,
     },
     {
@@ -49,7 +51,7 @@ const Product = () => {
       title: "Iphone 13 pro",
       price: 120000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Iphone,
     },
     {
@@ -57,7 +59,7 @@ const Product = () => {
       title: "Hp Latop",
       price: 55000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Laptop,
     },
     {
@@ -65,7 +67,7 @@ const Product = () => {
       title: "Samsung Phone",
       price: 70000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Samsung,
     },
     {
@@ -73,7 +75,7 @@ const Product = () => {
       title: "Ipad Pro",
       price: 60000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Ipad,
     },
     {
@@ -81,7 +83,7 @@ const Product = () => {
       title: "Desktop Computer",
       price: 80000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Desktop,
     },
     {
@@ -89,7 +91,7 @@ const Product = () => {
       title: "Iphone 13 pro",
       price: 120000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Iphone,
     },
     {
@@ -97,7 +99,7 @@ const Product = () => {
       title: "Hp Latop",
       price: 55000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Laptop,
     },
     {
@@ -105,7 +107,7 @@ const Product = () => {
       title: "Samsung Phone",
       price: 70000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Samsung,
     },
     {
@@ -113,7 +115,7 @@ const Product = () => {
       title: "Ipad Pro",
       price: 60000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Ipad,
     },
     {
@@ -121,7 +123,7 @@ const Product = () => {
       title: "Desktop Computer",
       price: 80000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Desktop,
     },
     {
@@ -129,7 +131,7 @@ const Product = () => {
       title: "Iphone 13 pro",
       price: 120000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Iphone,
     },
     {
@@ -137,7 +139,7 @@ const Product = () => {
       title: "Hp Latop",
       price: 55000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Laptop,
     },
     {
@@ -145,7 +147,7 @@ const Product = () => {
       title: "Samsung Phone",
       price: 70000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Samsung,
     },
     {
@@ -153,7 +155,7 @@ const Product = () => {
       title: "Ipad Pro",
       price: 60000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Ipad,
     },
     {
@@ -161,7 +163,7 @@ const Product = () => {
       title: "Desktop Computer",
       price: 80000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Desktop,
     },
     {
@@ -169,7 +171,7 @@ const Product = () => {
       title: "Iphone 13 pro",
       price: 120000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Iphone,
     },
     {
@@ -177,7 +179,7 @@ const Product = () => {
       title: "Hp Latop",
       price: 55000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Laptop,
     },
     {
@@ -185,7 +187,7 @@ const Product = () => {
       title: "Samsung Phone",
       price: 70000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Samsung,
     },
     {
@@ -193,7 +195,7 @@ const Product = () => {
       title: "Ipad Pro",
       price: 60000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Ipad,
     },
     {
@@ -201,7 +203,7 @@ const Product = () => {
       title: "Desktop Computer",
       price: 80000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Desktop,
     },
     {
@@ -209,7 +211,7 @@ const Product = () => {
       title: "Iphone 13 pro",
       price: 120000,
       quantity: 1,
-      des: " There are many variations of passages of Lorem Ipsum available.",
+      des: " There are many variations of items.",
       img: Iphone,
     },
   ];
@@ -224,7 +226,7 @@ const Product = () => {
     // });
 
     let checkList = list.filter((res) => res.id === item.id);
-    if (checkList.length <1) {
+    if (checkList.length < 1) {
       console.log("if");
       addList(item);
     }
@@ -232,49 +234,53 @@ const Product = () => {
   };
   return (
     <div>
-      <Grid container spacing={4}>
-        {data.map((item, i) => (
-          <Grid item xs={12} md={2} key={i}>
-            <div
-              style={{
-                textAlign: "center",
-                width: "95%",
-                margin: "auto",
-                background: "#fff",
-                padding: "10px",
-              }}
-            >
-              <img
-                src={item.img}
-                alt=""
-                height="120px"
-                width="120px"
-                style={{ display: "block", margin: "auto" }}
-              />
-              <h4>{item.title}</h4>
-              <p>{item.des}</p>
-              <Button
-                variant="contained"
-                disableElevation
-                fullWidth
+      <Container maxWidth="lg">
+        <br />
+        <Grid container spacing={4}>
+          {data.map((item, i) => (
+            <Grid item xs={12} md={2} key={i}>
+              <div
                 style={{
-                  background: "#FC2861",
-                  textTransform: "none",
-                  fontSize: "16px",
-                  color: "#fff",
-                  margin: "auto",
-                  display: "block",
                   textAlign: "center",
-                  borderRadius: "0px",
+                  width: "95%",
+                  margin: "auto",
+                  background: "#fff",
+                  padding: "10px",
                 }}
-                onClick={() => addNew(item)}
               >
-                Add To Card
-              </Button>
-            </div>
-          </Grid>
-        ))}
-      </Grid>
+                <img
+                  src={item.img}
+                  alt=""
+                  height="90px"
+                  width="90px"
+                  style={{ display: "block", margin: "auto" }}
+                />
+                <h4>{item.title}</h4>
+                <p>Tk {item.price}</p>
+                <p>{item.des}</p>
+                <Button
+                  variant="contained"
+                  disableElevation
+                  fullWidth
+                  style={{
+                    background: "#FC2861",
+                    textTransform: "none",
+                    fontSize: "16px",
+                    color: "#fff",
+                    margin: "auto",
+                    display: "block",
+                    textAlign: "center",
+                    borderRadius: "0px",
+                  }}
+                  onClick={() => addNew(item)}
+                >
+                  Add To Card
+                </Button>
+              </div>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
     </div>
   );
 };

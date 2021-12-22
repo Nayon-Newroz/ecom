@@ -11,7 +11,7 @@ const Navigation = () => {
       <div>
         <AppBar />
       </div>
-      <br/>
+      
       <div>
         <Switch>
           <Route path="/message">
