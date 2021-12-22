@@ -23,10 +23,19 @@ const Message = () => {
         justifyContent="center"
         alignItems="space-between"
         style={{
-          minHeight: "100vh",
+          minHeight: "calc(100vh - 85px)",
         }}
       >
-        <Grid item xs={12} style={{ textAlign: "center" }}>
+        <Grid
+          item
+          xs={12}
+          style={{
+            textAlign: "center",
+            padding: "40px 20px",
+            background: "#fff",
+            borderRadius: "10px",
+          }}
+        >
           <img
             src={Success}
             alt=""
@@ -34,7 +43,7 @@ const Message = () => {
             style={{ display: "block", margin: "auto" }}
           />
           <h1 style={{ color: "#2d335b", fontWeight: 400 }}>
-            Your Order Successfully Placed
+            Your Order Successfully Confirmed
           </h1>
           {/* <Grid
             container
