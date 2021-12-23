@@ -15,18 +15,25 @@ export const CartContextProvider = (props) => {
       payload: data,
     });
   };
-  const removelist = (id) => {
-    dispatch({
-      type: "REMOVE_LIST",
-      payload: id,
-    });
-  };
   const updatelist = (data) => {
     dispatch({
       type: "UPDATE_LIST",
       payload: data,
     });
   };
+  const removelist = (id) => {
+    dispatch({
+      type: "REMOVE_LIST",
+      payload: id,
+    });
+  };
+  const removeAll = () => {
+    dispatch({
+      type: "REMOVE_All",
+      payload: "",
+    });
+  };
+
   const completeHandle = (id) => {
     dispatch({
       type: "COMPLETE_HANDLE",
@@ -35,10 +42,19 @@ export const CartContextProvider = (props) => {
   };
   useEffect(() => {
     localStorage.setItem("list", JSON.stringify(list));
-    console.log('listFromContext',list);
-  }, [addList, removelist, completeHandle]);
+    console.log("listFromContext", list);
+  }, [addList, updatelist, removelist, removeAll, completeHandle]);
   return (
-    <CartContext.Provider value={{ addList,updatelist, removelist, list, completeHandle }}>
+    <CartContext.Provider
+      value={{
+        list,
+        addList,
+        updatelist,
+        removelist,
+        removeAll,
+        completeHandle,
+      }}
+    >
       {props.children}
     </CartContext.Provider>
   );

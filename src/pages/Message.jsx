@@ -12,7 +12,7 @@ const Message = () => {
   const { search } = useLocation();
 
   const searchParams = new URLSearchParams(search);
-  const name = searchParams.get("name");
+  const order_id = searchParams.get("order_id");
   const amount = searchParams.get("amount");
 
   return (
@@ -88,11 +88,11 @@ const Message = () => {
           </Grid> */}
           <p
             style={{
-              fontSize: "20px",
+              fontSize: "18px",
               color: "#333",
             }}
           >
-            Order Number : 1b9d6bcd
+           Order ID : {order_id}
           </p>
           <Button
             variant="contained"

@@ -11,6 +11,8 @@ import { CartContext } from "../context/CartContext";
 
 import Container from "@mui/material/Container";
 
+import { useSnackbar } from "notistack";
+
 const Product = () => {
   const data = [
     {
@@ -218,6 +220,19 @@ const Product = () => {
   console.log("data", data);
   const { addList, list } = useContext(CartContext);
   console.log("list", list);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const handleSnakbarOpen = (msg, vrnt) => {
+    let duration;
+    if (vrnt === "error") {
+      duration = 3000;
+    } else {
+      duration = 1000;
+    }
+    enqueueSnackbar(msg, {
+      variant: vrnt,
+      autoHideDuration: duration,
+    });
+  };
   const addNew = (item) => {
     // list.map((el) => {
     //   if (item.id === el.id) {
@@ -229,6 +244,7 @@ const Product = () => {
     if (checkList.length < 1) {
       console.log("if");
       addList(item);
+      handleSnakbarOpen("Successfully Added to Cart", "success");
     }
     console.log("checkList", checkList.length, checkList);
   };

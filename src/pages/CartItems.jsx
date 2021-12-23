@@ -26,6 +26,10 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
+
+import { useSnackbar } from "notistack";
 const useStyles = makeStyles({
   input: {
     "& input[type=number]": {
@@ -48,8 +52,23 @@ const CartItems = () => {
   const [promoCode, setPromoCode] = useState("");
   const [productTotalPrice, setProductTotalPrice] = useState(0);
   const [removeItemId, setRemoveItemId] = useState({});
-  const { addList, updatelist, removelist, list } = useContext(CartContext);
+  const { addList, updatelist, removelist, removeAll, list } =
+    useContext(CartContext);
   const [open, setOpen] = React.useState(false);
+
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const handleSnakbarOpen = (msg, vrnt) => {
+    let duration;
+    if (vrnt === "error") {
+      duration = 3000;
+    } else {
+      duration = 1000;
+    }
+    enqueueSnackbar(msg, {
+      variant: vrnt,
+      autoHideDuration: duration,
+    });
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -103,6 +122,69 @@ const CartItems = () => {
   useEffect(() => {
     fnTotalPrice();
   }, [list]);
+  const validation = () => {
+    let isError = false;
+
+    if (!address.trim()) {
+      handleSnakbarOpen("Please enter shipping address", "error");
+      document.getElementById("address").focus();
+      return (isError = true);
+    }
+
+    return isError;
+  };
+  const submit = async (e) => {
+    e.preventDefault();
+    try {
+      let err = validation();
+
+      if (err) {
+        return;
+      } else {
+        let uuid = uuidv4();
+        let splitId = uuid.split("-");
+        let newUUID = splitId.join("");
+        let cartData = [];
+        list.map((item) => {
+          cartData.push({
+            name: item.title,
+            qty: item.quantity,
+            unit_price: item.price,
+            sub_total: item.quantity * item.price,
+          });
+        });
+        const cardJSON = JSON.stringify(cartData);
+        console.log("cartData", cartData);
+        console.log("cartData", cardJSON);
+        let data = {
+          store_id: "1953_939",
+          store_password: "Password100@",
+          order_id: newUUID,
+          bill_amount: productTotalPrice,
+          currency: "IQD",
+          cart: cardJSON,
+          // cart: [{ name: "Scarf", qty: 1, unit_price: 5000, sub_total: 5000 }],
+        };
+        console.log("data", data);
+        let response = await axios({
+          method: "post",
+          url: "https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/initiation",
+          data: data,
+          headers: { "content-type": "application/json" },
+        });
+        console.log("response", response);
+        console.log("response", response);
+        console.log("status", response.status);
+        console.log("redirect_uri", response.data.data.redirect_uri);
+        if (response.status === 200) {
+          removeAll();
+          window.location.href = response.data.data.redirect_uri;
+        }
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
   return (
     <div>
       <Container maxWidth="lg">
@@ -243,7 +325,7 @@ const CartItems = () => {
               </Grid>
             </Grid>
             <Grid container>
-              <Grid item md={6}>
+              <Grid item xs={6}>
                 <p
                   style={{
                     fontSize: "14px",
@@ -253,7 +335,7 @@ const CartItems = () => {
                   Items {list.length}
                 </p>
               </Grid>
-              <Grid item md={6}>
+              <Grid item xs={6}>
                 <p
                   style={{
                     fontSize: "14px",
@@ -357,8 +439,7 @@ const CartItems = () => {
                   textAlign: "center",
                   marginTop: "6px",
                 }}
-                component={Link}
-                to="message"
+                onClick={submit}
               >
                 CheckOut
               </Button>
