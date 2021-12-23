@@ -226,7 +226,7 @@ const Product = () => {
     if (vrnt === "error") {
       duration = 3000;
     } else {
-      duration = 1000;
+      duration = 1500;
     }
     enqueueSnackbar(msg, {
       variant: vrnt,
@@ -245,6 +245,9 @@ const Product = () => {
       console.log("if");
       addList(item);
       handleSnakbarOpen("Successfully Added to Cart", "success");
+    }
+    else{
+      handleSnakbarOpen("You Already Added The Item", "warning");
     }
     console.log("checkList", checkList.length, checkList);
   };
