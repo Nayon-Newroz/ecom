@@ -314,6 +314,8 @@ const Product = () => {
             </Grid>
           ))}
         </Grid>
+        <br />
+        <br />
       </Container>
     </div>
   );
