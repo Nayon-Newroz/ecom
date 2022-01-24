@@ -84,28 +84,22 @@ const Checkout = () => {
     setRemoveItemId(id);
   };
   const modifyArray = (value, row) => {
-    console.log("value", value);
-    console.log("row", row);
+   
 
     let newObject;
-    if (!value) {
-      console.log("if");
+    if (!value) { 
       newObject = { ...row, quantity: 0 };
-    } else {
-      console.log("else");
+    } else { 
       newObject = { ...row, quantity: parseInt(value) };
-    }
-    console.log("newObject", newObject);
+    } 
     updatelist(newObject);
   };
   const increaseQuantity = (qty, row) => {
-    let newqty = parseInt(qty) + 1;
-    console.log("qty", qty, "newqty", newqty);
+    let newqty = parseInt(qty) + 1; 
     modifyArray(newqty, row);
   };
   const decreaseQuantity = (qty, row) => {
-    let newqty = parseInt(qty) - 1;
-    console.log("qty", qty, "newqty", newqty);
+    let newqty = parseInt(qty) - 1; 
     if (newqty > 0) {
       modifyArray(newqty, row);
     }
@@ -115,8 +109,7 @@ const Checkout = () => {
 
     list.map((item) => {
       return (total += item.quantity * item.price);
-    });
-    console.log("total", total);
+    }); 
     setProductTotalPrice(total);
   };
   useEffect(() => {
@@ -154,8 +147,7 @@ const Checkout = () => {
           });
         });
         const cardJSON = JSON.stringify(cartData);
-        console.log("cartData", cartData);
-        console.log("cartData", cardJSON);
+  
         let data = {
           store_id: "1953_939",
           store_password: "Password100@",
@@ -165,17 +157,14 @@ const Checkout = () => {
           cart: cardJSON,
           // cart: [{ name: "Scarf", qty: 1, unit_price: 5000, sub_total: 5000 }],
         };
-        console.log("data", data);
+ 
         let response = await axios({
           method: "post",
           url: "https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/initiation",
           data: data,
           headers: { "content-type": "application/json" },
         });
-        console.log("response", response);
-        console.log("response", response);
-        console.log("status", response.status);
-        console.log("redirect_uri", response.data.data.redirect_uri);
+      
         if (response.status === 200) {
           removeAll();
           window.location.href = response.data.data.redirect_uri;

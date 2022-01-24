@@ -41,8 +41,7 @@ export const CartContextProvider = (props) => {
     });
   };
   useEffect(() => {
-    localStorage.setItem("list", JSON.stringify(list));
-    console.log("listFromContext", list);
+    localStorage.setItem("list", JSON.stringify(list)); 
   }, [addList, updatelist, removelist, removeAll, completeHandle]);
   return (
     <CartContext.Provider

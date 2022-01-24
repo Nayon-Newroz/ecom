@@ -249,10 +249,8 @@ const Product = () => {
       des: " There are many variations of items.",
       img: Iphone,
     },
-  ];
-  console.log("data", data);
-  const { addList, list } = useContext(CartContext);
-  console.log("list", list);
+  ]; 
+  const { addList, list } = useContext(CartContext); 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const handleSnakbarOpen = (msg, vrnt) => {
     let duration;
@@ -274,14 +272,12 @@ const Product = () => {
     // });
 
     let checkList = list.filter((res) => res.id === item.id);
-    if (checkList.length < 1) {
-      console.log("if");
+    if (checkList.length < 1) { 
       addList(item);
       handleSnakbarOpen("Successfully Added to Cart", "success");
     } else {
       handleSnakbarOpen("You Already Added The Item", "warning");
-    }
-    console.log("checkList", checkList.length, checkList);
+    } 
   };
   return (
     <div>

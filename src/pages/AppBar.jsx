@@ -62,8 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimarySearchAppBar() {
   const { addList, list } = useContext(CartContext);
-  let history = useHistory();
-  console.log("listAppBar", list.length);
+  let history = useHistory(); 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
