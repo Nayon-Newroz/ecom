@@ -168,14 +168,17 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{background:'none',boxShadow:'none'}}>
+      <AppBar
+        position="static"
+        style={{ background: "none", boxShadow: "none" }}
+      >
         <Toolbar>
           {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 2 }}
+            // sx={{ mr: 2 }}
            >
             <MenuIcon />
           </IconButton> */}
@@ -183,7 +186,7 @@ export default function PrimarySearchAppBar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            // sx={{ display: { xs: "none", sm: "block" } }}
             style={{ cursor: "pointer" }}
             onClick={() => history.push("/")}
           >
@@ -210,16 +213,16 @@ export default function PrimarySearchAppBar() {
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
-            {/* <IconButton
+            <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={0} color="error">
                 <NotificationsIcon />
               </Badge>
-            </IconButton> */}
-            {/* <IconButton
+            </IconButton>
+            <IconButton
               size="large"
               edge="end"
               aria-label="account of current user"
@@ -227,12 +230,12 @@ export default function PrimarySearchAppBar() {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
-             >
+            >
               <AccountCircle />
-            </IconButton> */}
+            </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
+            {/* <IconButton
               size="large"
               aria-label="show more"
               aria-controls={mobileMenuId}
@@ -241,6 +244,36 @@ export default function PrimarySearchAppBar() {
               color="inherit"
             >
               <MoreIcon />
+            </IconButton> */}
+            <IconButton
+              size="large"
+              aria-label="show 4 new mails"
+              color="inherit"
+              onClick={() => history.push("/cart")}
+            >
+              <Badge badgeContent={list.length} color="error">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+              size="large"
+              aria-label="show 17 new notifications"
+              color="inherit"
+            >
+              <Badge badgeContent={0} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
             </IconButton>
           </Box>
         </Toolbar>

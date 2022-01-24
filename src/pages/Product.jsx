@@ -5,7 +5,7 @@ import Samsung from "../assets/images/Samsung.jpg";
 import Ipad from "../assets/images/Ipad.jpg";
 import Iphone from "../assets/images/Iphone.png";
 import Grid from "@mui/material/Grid";
-
+import { makeStyles } from "@mui/styles";
 import Button from "@mui/material/Button";
 import { CartContext } from "../context/CartContext";
 
@@ -13,11 +13,44 @@ import Container from "@mui/material/Container";
 
 import { useSnackbar } from "notistack";
 
+const useStyles = makeStyles((theme) => ({
+  card: {
+    textAlign: "center",
+    width: "95%",
+    margin: "auto",
+    background: "#fff",
+    padding: "20px 10px",
+    borderRadius: "10px",
+    boxSizing: "border-box",
+    transition: ".5s",
+    "&:hover": {
+      boxShadow:
+        "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px",
+      transform: "scale(1.05)",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "70%",
+    },
+  },
+  cardButton: {
+    background: "#FC2861 !important",
+    textTransform: "none !important",
+    fontSize: "16px",
+    color: "#fff !important",
+    margin: "auto",
+    display: "block",
+    textAlign: "center",
+    // borderRadius: "0px",
+    // borderRadius: "10px !important",
+  },
+}));
+
 const Product = () => {
+  const classes = useStyles();
   const data = [
     {
       id: 1,
-      title: "Hp Latop",
+      title: "Hp Laptop",
       price: 55000,
       quantity: 1,
       des: " There are many variations of items.",
@@ -58,7 +91,7 @@ const Product = () => {
     },
     {
       id: 6,
-      title: "Hp Latop",
+      title: "Hp Laptop",
       price: 55000,
       quantity: 1,
       des: " There are many variations of items.",
@@ -98,7 +131,7 @@ const Product = () => {
     },
     {
       id: 11,
-      title: "Hp Latop",
+      title: "Hp Laptop",
       price: 55000,
       quantity: 1,
       des: " There are many variations of items.",
@@ -138,7 +171,7 @@ const Product = () => {
     },
     {
       id: 16,
-      title: "Hp Latop",
+      title: "Hp Laptop",
       price: 55000,
       quantity: 1,
       des: " There are many variations of items.",
@@ -178,7 +211,7 @@ const Product = () => {
     },
     {
       id: 21,
-      title: "Hp Latop",
+      title: "Hp Laptop",
       price: 55000,
       quantity: 1,
       des: " There are many variations of items.",
@@ -245,8 +278,7 @@ const Product = () => {
       console.log("if");
       addList(item);
       handleSnakbarOpen("Successfully Added to Cart", "success");
-    }
-    else{
+    } else {
       handleSnakbarOpen("You Already Added The Item", "warning");
     }
     console.log("checkList", checkList.length, checkList);
@@ -257,16 +289,8 @@ const Product = () => {
         <br />
         <Grid container spacing={4}>
           {data.map((item, i) => (
-            <Grid item xs={12} md={2} key={i}>
-              <div
-                style={{
-                  textAlign: "center",
-                  width: "95%",
-                  margin: "auto",
-                  background: "#fff",
-                  padding: "10px",
-                }}
-              >
+            <Grid item xs={12} sm={4} md={3} lg={2.4} key={i}>
+              <div className={classes.card}>
                 <img
                   src={item.img}
                   alt=""
@@ -281,16 +305,7 @@ const Product = () => {
                   variant="contained"
                   disableElevation
                   fullWidth
-                  style={{
-                    background: "#FC2861",
-                    textTransform: "none",
-                    fontSize: "16px",
-                    color: "#fff",
-                    margin: "auto",
-                    display: "block",
-                    textAlign: "center",
-                    borderRadius: "0px",
-                  }}
+                  className={classes.cardButton}
                   onClick={() => addNew(item)}
                 >
                   Add To Card

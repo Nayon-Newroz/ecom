@@ -30,10 +30,45 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
 import { useSnackbar } from "notistack";
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
+  tableBodyStyle: {
+    "& td": {
+      [theme.breakpoints.down("sm")]: {
+        padding: "5px",
+      },
+    },
+  },
+  imgDiv: {
+    [theme.breakpoints.down("sm")]: {
+      width: "65px",
+    },
+  },
+  buttonGroup: {
+    width: "150px",
+    [theme.breakpoints.down("sm")]: {
+      width: "15px",
+      flexDirection: "column",
+    },
+  },
+  iconButton: {
+    [theme.breakpoints.down("sm")]: {
+      padding: "5px 0",
+    },
+  },
+  iconStyle: {
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "18px",
+    },
+  },
   input: {
+    // textAlign: "center !important",
     "& input[type=number]": {
       "-moz-appearance": "textfield",
+      fontSize: "12px",
+      [theme.breakpoints.down("sm")]: {
+        padding: "3px",
+        textAlign: "center",
+      },
     },
     "& input[type=number]::-webkit-outer-spin-button": {
       "-webkit-appearance": "none",
@@ -43,8 +78,65 @@ const useStyles = makeStyles({
       "-webkit-appearance": "none",
       margin: 0,
     },
+    width: "50px",
+    [theme.breakpoints.down("sm")]: {
+      width: "35px",
+    },
   },
-});
+  titleStyle: {
+    fontSize: "17px",
+    fontWeight: 600,
+    margin: 0,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "14px",
+      marginBottom: "10px",
+    },
+  },
+  titleStyle2: {
+    fontSize: "30px",
+    fontWeight: 500,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "17px",
+    },
+  },
+
+  priceStyle: {
+    color: "#95A5A6",
+    margin: "5px 0 0 0",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "12px",
+    },
+  },
+  cartImg: {
+    width: "80px",
+    height: "80px",
+    [theme.breakpoints.down("sm")]: {
+      width: "60px",
+      height: "60px",
+    },
+  },
+  forMobileView: {
+    display: "none",
+    [theme.breakpoints.down("sm")]: {
+      display: "block",
+    },
+  },
+  forOtherView: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+  containerStyle: {
+    [theme.breakpoints.down("sm")]: {
+      padding: 0,
+    },
+  },
+  quantityControler: {
+    [theme.breakpoints.down("sm")]: {
+      // width: "100%",
+    },
+  },
+}));
 const CartItems = () => {
   const classes = useStyles();
 
@@ -157,7 +249,7 @@ const CartItems = () => {
         console.log("cartData", cartData);
         console.log("cartData", cardJSON);
         let data = {
-          store_id: "1953_939",
+          store_id: "748911_366",
           store_password: "Password100@",
           order_id: newUUID,
           bill_amount: productTotalPrice,
@@ -187,40 +279,43 @@ const CartItems = () => {
   };
   return (
     <div>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" className={classes.containerStyle}>
         <Grid container>
-          <Grid item md={9} style={{ padding: "20px", background: "#fff" }}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={9}
+            style={{ padding: "20px", background: "#fff" }}
+          >
             <Grid container>
-              <Grid item md={6}>
-                <p style={{ fontSize: "30px", fontWeight: 500 }}>
-                  Shopping Cart
-                </p>
+              <Grid item xs={6} sm={6} md={6}>
+                <p className={classes.titleStyle2}>Shopping Cart</p>
               </Grid>
-              <Grid item md={6}>
+              <Grid item xs={6} sm={6} md={6}>
                 <p
                   style={{
-                    fontSize: "30px",
-                    fontWeight: 500,
                     textAlign: "right",
                   }}
+                  className={classes.titleStyle2}
                 >
                   {list.length} Items
                 </p>
               </Grid>
             </Grid>
             <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
+              <Table aria-label="simple table">
+                <TableHead className={classes.forOtherView}>
                   <TableRow>
                     <TableCell>Product Details</TableCell>
                     <TableCell>Title</TableCell>
                     <TableCell align="center">Quantity</TableCell>
-                    <TableCell align="right">Price</TableCell>
+                    <TableCell align="right">Unit Price</TableCell>
                     <TableCell align="right">Total</TableCell>
                     <TableCell align="right">Remove</TableCell>
                   </TableRow>
                 </TableHead>
-                <TableBody>
+                <TableBody className={classes.tableBodyStyle}>
                   {list &&
                     list.map((row, i) => (
                       <TableRow
@@ -229,39 +324,47 @@ const CartItems = () => {
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
                       >
-                        <TableCell>
+                        <TableCell className={classes.imgDiv}>
                           <img
                             src={row.img}
                             alt=""
-                            width="80px"
-                            height="80px"
+                            className={classes.cartImg}
                           />
                         </TableCell>
-                        <TableCell>{row.title}</TableCell>
+                        <TableCell>
+                          <p className={classes.titleStyle}> {row.title}</p>
+                          <div className={classes.forMobileView}>
+                            <p className={classes.priceStyle}>
+                              Tk. {row.price}{" "}
+                            </p>
+                          </div>
+                        </TableCell>
                         <TableCell>
                           {" "}
                           <Grid
                             container
                             justifyContent="center"
                             alignItems="center"
+                            className={classes.buttonGroup}
                           >
-                            <Grid>
+                            <Grid className={classes.quantityControler}>
                               <IconButton
                                 onClick={() =>
                                   decreaseQuantity(row.quantity, row)
                                 }
+                                className={classes.iconButton}
                               >
-                                <RemoveIcon />
+                                <RemoveIcon className={classes.iconStyle} />
                               </IconButton>
                             </Grid>
-                            <Grid>
+                            <Grid className={classes.quantityControler}>
                               {" "}
                               <TextField
                                 id="outlined-basic"
                                 className={classes.input}
                                 variant="outlined"
                                 size="small"
-                                style={{ width: "50px" }}
+                                // style={{ width: "50px" }}
                                 type="number"
                                 value={row.quantity}
                                 onChange={(e) => {
@@ -269,23 +372,39 @@ const CartItems = () => {
                                 }}
                               />
                             </Grid>
-                            <Grid>
+                            <Grid className={classes.quantityControler}>
                               <IconButton
                                 aria-label="AddIcon"
                                 onClick={() =>
                                   increaseQuantity(row.quantity, row)
                                 }
+                                className={classes.iconButton}
                               >
-                                <AddIcon />
+                                <AddIcon className={classes.iconStyle} />
                               </IconButton>
                             </Grid>
                           </Grid>
+                          {/* <div className={classes.forMobileView}>
+                            <br />
+                            {row.quantity * row.price}
+                          </div> */}
                         </TableCell>
-                        <TableCell align="right">{row.price}</TableCell>
-                        <TableCell align="right">
+                        <TableCell
+                          align="right"
+                          className={classes.forOtherView}
+                        >
+                          {row.price}
+                        </TableCell>
+                        <TableCell
+                          align="right"
+                          className={classes.forOtherView}
+                        >
                           {row.quantity * row.price}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell
+                          align="right"
+                          className={classes.forOtherView}
+                        >
                           <IconButton
                             aria-label="delete"
                             color="secondary"
@@ -316,12 +435,15 @@ const CartItems = () => {
               Continue Shopping
             </Button>
           </Grid>
-          <Grid item md={3} style={{ padding: "20px", background: "#f3f3f3" }}>
+          <Grid
+            item
+            sm={12}
+            md={3}
+            style={{ padding: "20px", background: "#f3f3f3" }}
+          >
             <Grid container>
               <Grid item md={12}>
-                <p style={{ fontSize: "30px", fontWeight: 500 }}>
-                  Order Summary
-                </p>
+                <p className={classes.titleStyle2}>Order Summary</p>
               </Grid>
             </Grid>
             <Grid container>
