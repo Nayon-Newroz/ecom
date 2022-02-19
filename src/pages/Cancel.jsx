@@ -1,18 +1,12 @@
-import React, { useEffect, useContext } from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import Success from "../assets/images/Success.png";
+import cancel from "../assets/images/cancel.png";
 import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { CartContext } from "../context/CartContext";
 
-const Message = () => {
-  const { removeAll } = useContext(CartContext);
-
-  useEffect(() => {
-    removeAll();
-  }, []);
+const Cancel = () => {
   return (
     <Container maxWidth="md">
       <Grid
@@ -35,13 +29,13 @@ const Message = () => {
           }}
         >
           <img
-            src={Success}
+            src={cancel}
             alt=""
             width="60px"
             style={{ display: "block", margin: "auto" }}
           />
-          <h2 style={{ color: "#2d335b", fontWeight: 400 }}>
-            Your donation successfully sent
+          <h2 style={{ color: "#FC4140", fontWeight: 400 }}>
+            Your donation has been canceled
           </h2>
 
           <Button
@@ -65,4 +59,4 @@ const Message = () => {
   );
 };
 
-export default Message;
+export default Cancel;

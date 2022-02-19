@@ -10,6 +10,8 @@ import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
+import FlashOnIcon from "@mui/icons-material/FlashOn";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
@@ -62,7 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimarySearchAppBar() {
   const { addList, list } = useContext(CartContext);
-  let history = useHistory(); 
+  let history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -132,7 +134,7 @@ export default function PrimarySearchAppBar() {
           color="inherit"
           onClick={() => history.push("/cart")}
         >
-          <Badge badgeContent={list.length} color="error">
+          <Badge badgeContent={list.length} color="secondary">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
@@ -144,7 +146,7 @@ export default function PrimarySearchAppBar() {
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={17} color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -172,24 +174,25 @@ export default function PrimarySearchAppBar() {
         style={{ background: "none", boxShadow: "none" }}
       >
         <Toolbar>
-          {/* <IconButton
+          <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
             // sx={{ mr: 2 }}
-           >
-            <MenuIcon />
-          </IconButton> */}
+            style={{ paddingRight: "2px" }}
+          >
+            <FlashOnIcon color="secondary" />
+          </IconButton>
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component="div"
             // sx={{ display: { xs: "none", sm: "block" } }}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", color: "#F5B041" }}
             onClick={() => history.push("/")}
           >
-            Fast Shop
+            FastShop
           </Typography>
           {/* <Search>
             <SearchIconWrapper>
@@ -208,7 +211,7 @@ export default function PrimarySearchAppBar() {
               color="inherit"
               onClick={() => history.push("/cart")}
             >
-              <Badge badgeContent={list.length} color="error">
+              <Badge badgeContent={list.length} color="secondary">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
@@ -217,7 +220,7 @@ export default function PrimarySearchAppBar() {
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={0} color="error">
+              <Badge badgeContent={0} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -250,7 +253,7 @@ export default function PrimarySearchAppBar() {
               color="inherit"
               onClick={() => history.push("/cart")}
             >
-              <Badge badgeContent={list.length} color="error">
+              <Badge badgeContent={list.length} color="secondary">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
@@ -259,7 +262,7 @@ export default function PrimarySearchAppBar() {
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={0} color="error">
+              <Badge badgeContent={0} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>

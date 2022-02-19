@@ -7,8 +7,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Stack from "@mui/material/Stack";
-import { styled } from "@mui/material/styles";
 import { CartContext } from "../context/CartContext";
 import TextField from "@mui/material/TextField";
 import AddIcon from "@mui/icons-material/Add";
@@ -20,7 +18,8 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-
+import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -49,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
       width: "15px",
       flexDirection: "column",
     },
+  },
+  removeButton: {
+    width: "15px",
   },
   iconButton: {
     [theme.breakpoints.down("sm")]: {
@@ -85,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
   },
   titleStyle: {
     fontSize: "17px",
+    color: "#154360",
     fontWeight: 600,
     margin: 0,
     [theme.breakpoints.down("sm")]: {
@@ -94,6 +97,7 @@ const useStyles = makeStyles((theme) => ({
   },
   titleStyle2: {
     fontSize: "30px",
+    color: "#154360",
     fontWeight: 500,
     [theme.breakpoints.down("sm")]: {
       fontSize: "17px",
@@ -144,8 +148,8 @@ const CartItems = () => {
   const [promoCode, setPromoCode] = useState("");
   const [productTotalPrice, setProductTotalPrice] = useState(0);
   const [removeItemId, setRemoveItemId] = useState({});
-  const { addList, updatelist, removelist, removeAll, list } =
-    useContext(CartContext);
+  const [loading, setLoading] = useState(false);
+  const { updatelist, removelist, list } = useContext(CartContext);
   const [open, setOpen] = React.useState(false);
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -225,6 +229,7 @@ const CartItems = () => {
       if (err) {
         return;
       } else {
+        setLoading(true);
         let uuid = uuidv4();
         let splitId = uuid.split("-");
         let newUUID = splitId.join("");
@@ -255,10 +260,13 @@ const CartItems = () => {
           headers: { "content-type": "application/json" },
         });
 
-        if (response.status === 200) {
-          removeAll();
+        if (response.data.code === 422 && response.data.messages.length) {
+          handleSnakbarOpen(response.data.messages.toString(), "error");
+        }
+        if (response.data.code === 200) {
           window.location.href = response.data.data.redirect_uri;
         }
+        setLoading(false);
       }
     } catch (error) {
       console.log("error", error);
@@ -286,7 +294,7 @@ const CartItems = () => {
                   }}
                   className={classes.titleStyle2}
                 >
-                  {list.length} Items
+                  {list.length} Item{list.length > 1 && "s"}
                 </p>
               </Grid>
             </Grid>
@@ -391,7 +399,7 @@ const CartItems = () => {
                         <TableCell
                           align="right"
                           // className={classes.forOtherView}
-                          className={classes.buttonGroup}
+                          className={classes.removeButton}
                         >
                           <IconButton
                             aria-label="delete"
@@ -414,8 +422,9 @@ const CartItems = () => {
                 background: "none",
                 textTransform: "none",
                 fontSize: "16px",
-                color: "#3498DB",
+                color: "#154360",
               }}
+              color="primary"
               component={Link}
               to="/"
               startIcon={<KeyboardBackspaceIcon fontSize="large" />}
@@ -425,6 +434,7 @@ const CartItems = () => {
           </Grid>
           <Grid
             item
+            xs={12}
             sm={12}
             md={3}
             style={{ padding: "20px", background: "#f3f3f3" }}
@@ -442,7 +452,7 @@ const CartItems = () => {
                     fontWeight: 500,
                   }}
                 >
-                  Items {list.length}
+                  Item{list.length > 1 && "s"} {list.length}
                 </p>
               </Grid>
               <Grid item xs={6}>
@@ -499,14 +509,11 @@ const CartItems = () => {
               <Button
                 variant="contained"
                 disableElevation
+                color="secondary"
                 style={{
-                  background: "#FC2861",
                   textTransform: "none",
                   fontSize: "16px",
-                  color: "#fff",
                   width: "180px",
-                  // margin: "auto",
-                  // display: "block",
                   textAlign: "center",
                 }}
               >
@@ -517,17 +524,24 @@ const CartItems = () => {
             <hr />
             <div>
               <Grid container>
-                <Grid item md={6}>
-                  <p style={{ fontSize: "18px", fontWeight: 500 }}>
+                <Grid item xs={6}>
+                  <p
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: 500,
+                      color: "#154360",
+                    }}
+                  >
                     Total Cost
                   </p>
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={6}>
                   <p
                     style={{
                       fontSize: "18px",
                       fontWeight: 500,
                       textAlign: "right",
+                      color: "#154360",
                     }}
                   >
                     Tk. {productTotalPrice}
@@ -539,18 +553,22 @@ const CartItems = () => {
                 variant="contained"
                 disableElevation
                 style={{
-                  // background: "#FC2861",
                   textTransform: "none",
                   fontSize: "16px",
-                  color: "#fff",
-
-                  // margin: "auto",
-                  // display: "block",
                   textAlign: "center",
                   marginTop: "6px",
                 }}
                 onClick={submit}
               >
+                {" "}
+                {loading && (
+                  <CircularProgress
+                    size={18}
+                    style={{
+                      color: "#fff",
+                    }}
+                  />
+                )}{" "}
                 CheckOut
               </Button>
             </div>

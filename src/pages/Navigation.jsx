@@ -1,16 +1,27 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 import Container from "@mui/material/Container";
 import AppBar from "./AppBar";
 import CartItems from "./CartItems";
 import Product from "./Product";
 import Message from "./Message";
 import Checkout from "./Checkout";
-
+import Cancel from "./Cancel";
 const Navigation = () => {
+  let pathname = useLocation().pathname;
+
   return (
-    <Router>
-      <div style={{ minHeight: "64px", background: "#1976d2" }}>
+    <React.Fragment>
+      <div
+        style={{
+          minHeight: "64px",
+          background: "#154360",
+          display:
+            pathname === "/success" || pathname === "/cancel"
+              ? "none"
+              : "block",
+        }}
+      >
         <Container maxWidth="xl" style={{ padding: 0 }}>
           <AppBar />
         </Container>
@@ -18,7 +29,10 @@ const Navigation = () => {
 
       <div>
         <Switch>
-          <Route path="/message">
+          <Route path="/cancel">
+            <Cancel />
+          </Route>
+          <Route path="/success">
             <Message />
           </Route>
           <Route path="/checkout">
@@ -33,7 +47,7 @@ const Navigation = () => {
           </Route>
         </Switch>
       </div>
-    </Router>
+    </React.Fragment>
   );
 };
 

@@ -8,10 +8,12 @@ import Grid from "@mui/material/Grid";
 import { makeStyles } from "@mui/styles";
 import Button from "@mui/material/Button";
 import { CartContext } from "../context/CartContext";
-
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
-
+import StarIcon from "@mui/icons-material/Star";
 import { useSnackbar } from "notistack";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -33,15 +35,29 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   cardButton: {
-    background: "#FC2861 !important",
     textTransform: "none !important",
+    borderRadius: "25px !important",
+    padding: "5px 20px",
+    // fontSize: "16px",
+    // margin: "auto",
+    // display: "block",
+    // textAlign: "center",
+  },
+  cardTitle: {
+    marginBottom: "5px",
+    color: "#154360",
+  },
+  priceStyle: {
     fontSize: "16px",
-    color: "#fff !important",
-    margin: "auto",
-    display: "block",
-    textAlign: "center",
-    // borderRadius: "0px",
-    // borderRadius: "10px !important",
+    color: "#154360",
+    fontWeight: "500 !important",
+    marginTop: 8,
+    marginBottom: 14,
+  },
+  productDetail: {
+    fontSize: "13px",
+    color: "#839192",
+    marginTop: 0,
   },
 }));
 
@@ -249,15 +265,15 @@ const Product = () => {
       des: " There are many variations of items.",
       img: Iphone,
     },
-  ]; 
-  const { addList, list } = useContext(CartContext); 
+  ];
+  const { addList, list } = useContext(CartContext);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const handleSnakbarOpen = (msg, vrnt) => {
     let duration;
     if (vrnt === "error") {
-      duration = 3000;
+      duration = 2000;
     } else {
-      duration = 1500;
+      duration = 1000;
     }
     enqueueSnackbar(msg, {
       variant: vrnt,
@@ -272,12 +288,12 @@ const Product = () => {
     // });
 
     let checkList = list.filter((res) => res.id === item.id);
-    if (checkList.length < 1) { 
+    if (checkList.length < 1) {
       addList(item);
       handleSnakbarOpen("Successfully Added to Cart", "success");
     } else {
       handleSnakbarOpen("You Already Added The Item", "warning");
-    } 
+    }
   };
   return (
     <div>
@@ -294,17 +310,24 @@ const Product = () => {
                   width="90px"
                   style={{ display: "block", margin: "auto" }}
                 />
-                <h4>{item.title}</h4>
-                <p>Tk {item.price}</p>
-                <p>{item.des}</p>
+                <h4 className={classes.cardTitle}>{item.title}</h4>
+                <p className={classes.productDetail}>{item.des}</p>
+                <Grid container justifyContent="center" alignItems="center">
+                  <StarIcon fontSize="12px" color="secondary" />
+                  <StarIcon fontSize="12px" color="secondary" />
+                  <StarIcon fontSize="12px" color="secondary" />
+                  <StarIcon fontSize="12px" color="secondary" />
+                  <StarIcon fontSize="12px" color="secondary" />
+                </Grid>
+                <p className={classes.priceStyle}>Tk {item.price}</p>
                 <Button
                   variant="contained"
+                  // variant="outlined"
                   disableElevation
-                  fullWidth
                   className={classes.cardButton}
                   onClick={() => addNew(item)}
                 >
-                  Add To Card
+                  Add To Cart
                 </Button>
               </div>
             </Grid>
